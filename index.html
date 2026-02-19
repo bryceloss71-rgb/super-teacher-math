@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptHumanizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>PromptHumanizer</span>
+            </div>
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Navigation -->
+        <nav class="main-nav">
+            <button class="nav-btn active" data-tab="humanizer">
+                <i class="fa-solid fa-pen-nib"></i> AI Humanizer
+            </button>
+            <button class="nav-btn" data-tab="checker">
+                <i class="fa-solid fa-magnifying-glass-chart"></i> AI Checker
+            </button>
+        </nav>
+
+        <!-- Content Area -->
+        <main>
+            <!-- Humanizer Section -->
+            <section id="humanizer" class="tab-content active">
+                <div class="card input-card">
+                    <div class="card-header">
+                        <label for="humanizer-input">Input Text</label>
+                        <div class="options-bar">
+                            <div class="select-group">
+                                <label>Tone:</label>
+                                <select id="tone-select">
+                                    <option value="natural">Natural</option>
+                                    <option value="casual">Casual</option>
+                                    <option value="professional">Professional</option>
+                                    <option value="academic">Academic</option>
+                                </select>
+                            </div>
+                            <div class="select-group">
+                                <label>Readability:</label>
+                                <select id="readability-select">
+                                    <option value="standard">Standard</option>
+                                    <option value="simple">Simple</option>
+                                    <option value="advanced">Advanced</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <textarea id="humanizer-input" placeholder="Paste AI-generated text here..."></textarea>
+                    <div class="card-footer">
+                        <span id="input-word-count">0 words</span>
+                        <button id="humanize-btn" class="primary-btn">
+                            <i class="fa-solid fa-sparkles"></i> Humanize Text
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card output-card">
+                    <div class="card-header">
+                        <label>Humanized Result</label>
+                        <div class="actions">
+                            <button class="icon-btn copy-btn" data-target="humanizer-output" title="Copy to clipboard">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="humanizer-output" class="output-area" placeholder="Result will appear here..."></div>
+                </div>
+            </section>
+
+            <!-- AI Checker Section -->
+            <section id="checker" class="tab-content">
+                <div class="card input-card">
+                    <div class="card-header">
+                        <label for="checker-input">Text Analysis</label>
+                    </div>
+                    <textarea id="checker-input" placeholder="Paste text to analyze for AI patterns..."></textarea>
+                    <div class="card-footer">
+                        <span id="checker-word-count">0 words</span>
+                        <button id="check-btn" class="primary-btn">
+                            <i class="fa-solid fa-shield-halved"></i> Check for AI
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card results-card" id="checker-results" style="display: none;">
+                    <div class="score-container">
+                        <div class="score-circle">
+                            <svg viewBox="0 0 36 36" class="circular-chart">
+                                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="score-circle-path" class="circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <text x="18" y="20.35" class="percentage" id="score-text">0%</text>
+                            </svg>
+                            <span class="score-label">AI Probability</span>
+                        </div>
+                        <div class="verdict-container">
+                            <h2 id="verdict-label">Waiting...</h2>
+                            <p class="verdict-desc">Our estimate based on analysis.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <span class="metric-value" id="perplexity-score">--</span>
+                            <span class="metric-label">Perplexity</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-value" id="burstiness-score">--</span>
+                            <span class="metric-label">Burstiness</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer / Disclaimer -->
+        <footer>
+            <p class="disclaimer">
+                <i class="fa-solid fa-circle-info"></i> 
+                AI detection results are estimates and should not be considered definitive proof of authorship.
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
